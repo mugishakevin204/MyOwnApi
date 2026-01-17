@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
+@SuppressWarnings("unused")
 @RestController
 @RequestMapping("/api/courses")
 public class CourseController {
@@ -23,7 +24,6 @@ public class CourseController {
         return courseService.saveCourse(course);
     }
 
-    // NEW: Update an existing course
     @PutMapping("/{id}")
     public Course updateCourse(@PathVariable Long id, @RequestBody Course courseDetails) {
         Course course = courseService.getCourseById(id);
@@ -32,7 +32,6 @@ public class CourseController {
         return courseService.saveCourse(course);
     }
 
-    // NEW: Delete a course
     @DeleteMapping("/{id}")
     public String deleteCourse(@PathVariable Long id) {
         courseService.deleteCourse(id);

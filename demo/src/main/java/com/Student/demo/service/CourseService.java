@@ -7,7 +7,6 @@ public interface CourseService {
     List<Course> getAllCourses();
     Course saveCourse(Course course);
 
-    // ADD THESE TWO LINES:
     Course getCourseById(Long id);
     void deleteCourse(Long id);
 }

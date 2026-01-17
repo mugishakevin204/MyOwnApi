@@ -7,6 +7,5 @@ import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-    // This MUST return Optional<User> to match the Service logic
     Optional<User> findByUsername(String username);
 }

@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+@SuppressWarnings("unused")
 @Service
 public class StudentServiceImpl implements StudentService {
 

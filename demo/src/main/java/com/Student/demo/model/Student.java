@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Set;
 import java.util.HashSet;
 
@@ -17,16 +18,20 @@ public class Student {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Schema(example = "1", accessMode = Schema.AccessMode.READ_ONLY)
     private Long id;
 
-    @NotBlank(message = "First name is mandatory")
+    @NotBlank
+    @Schema(example = "Alice")
     private String firstName;
 
-    @NotBlank(message = "Last name is mandatory")
+    @NotBlank
+    @Schema(example = "Smith")
     private String lastName;
 
-    @Email(message = "Email should be valid")
-    @NotBlank(message = "Email is mandatory")
+    @Email
+    @NotBlank
+    @Schema(example = "alice.smith@example.com")
     private String email;
 
     @ManyToOne

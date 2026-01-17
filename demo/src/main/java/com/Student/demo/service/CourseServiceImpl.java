@@ -22,7 +22,6 @@ public class CourseServiceImpl implements CourseService {
         return courseRepository.save(course);
     }
 
-    // ADD THESE TWO METHODS:
     @Override
     public Course getCourseById(Long id) {
         return courseRepository.findById(id).orElseThrow(() ->
