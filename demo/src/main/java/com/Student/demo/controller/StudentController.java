@@ -28,7 +28,7 @@ public class StudentController {
     @PostMapping
     public ResponseEntity<Student> createStudent(@Valid @RequestBody Student student) {
         Student savedStudent = studentService.saveStudent(student);
-        // Correct Status Code: 201 Created
+
         return new ResponseEntity<>(savedStudent, HttpStatus.CREATED);
     }
 
@@ -45,7 +45,7 @@ public class StudentController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteStudent(@PathVariable Long id) {
         studentService.deleteStudent(id);
-        // Correct Status Code: 204 No Content
+
         return ResponseEntity.noContent().build();
     }
 }

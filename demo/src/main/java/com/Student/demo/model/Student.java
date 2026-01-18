@@ -12,7 +12,15 @@ import java.util.Set;
 import java.util.HashSet;
 
 @Entity
-@Table(name = "students")
+@Table(
+        name = "students",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = "email")
+        },
+        indexes = {
+                @Index(name = "idx_student_lastname", columnList = "last_name")
+        }
+)
 @Data
 public class Student {
 
@@ -22,15 +30,18 @@ public class Student {
     private Long id;
 
     @NotBlank
+    @Column(name = "first_name")
     @Schema(example = "Alice")
     private String firstName;
 
     @NotBlank
+    @Column(name = "last_name")
     @Schema(example = "Smith")
     private String lastName;
 
     @Email
     @NotBlank
+    @Column(nullable = false)
     @Schema(example = "alice.smith@example.com")
     private String email;
 

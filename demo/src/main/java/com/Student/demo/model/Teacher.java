@@ -9,7 +9,15 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.List;
 
 @Entity
-@Table(name = "teachers")
+@Table(
+        name = "teachers",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = "email")
+        },
+        indexes = {
+                @Index(name = "idx_teacher_lastname", columnList = "last_name")
+        }
+)
 @Data
 public class Teacher {
 
@@ -18,12 +26,15 @@ public class Teacher {
     @Schema(example = "1", accessMode = Schema.AccessMode.READ_ONLY)
     private Long id;
 
+    @Column(name = "first_name", nullable = false)
     @Schema(example = "John")
     private String firstName;
 
+    @Column(name = "last_name", nullable = false)
     @Schema(example = "Doe")
     private String lastName;
 
+    @Column(nullable = false)
     @Schema(example = "john.doe@example.com")
     private String email;
 
