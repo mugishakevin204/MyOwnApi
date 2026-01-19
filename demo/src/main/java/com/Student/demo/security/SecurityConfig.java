@@ -1,4 +1,4 @@
-package com.Student.demo.config;
+package com.Student.demo.security;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;

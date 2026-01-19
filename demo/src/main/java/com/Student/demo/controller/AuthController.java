@@ -1,6 +1,6 @@
 package com.Student.demo.controller;
 
-import com.Student.demo.config.JwtUtils;
+import com.Student.demo.security.JwtUtils;
 import com.Student.demo.model.User;
 import com.Student.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,6 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody User user) {
-        // Automatically hash the password before saving!
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole("ROLE_USER");
         userRepository.save(user);

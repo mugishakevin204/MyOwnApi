@@ -1,4 +1,4 @@
-package com.Student.demo.config;
+package com.Student.demo.security;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
