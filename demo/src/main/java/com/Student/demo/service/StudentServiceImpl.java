@@ -3,8 +3,10 @@ package com.Student.demo.service;
 import com.Student.demo.dto.StudentDTO;
 import com.Student.demo.exception.ResourceNotFoundException;
 import com.Student.demo.model.Course;
+import com.Student.demo.model.Department;
 import com.Student.demo.model.Student;
 import com.Student.demo.repository.CourseRepository;
+import com.Student.demo.repository.DepartmentRepository;
 import com.Student.demo.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,6 +25,9 @@ public class StudentServiceImpl implements StudentService {
 
     @Autowired
     private CourseRepository courseRepository;
+
+    @Autowired
+    private DepartmentRepository departmentRepository;
 
     @Override
     public Page<Student> getAllStudents(Pageable pageable) {
@@ -62,6 +67,16 @@ public class StudentServiceImpl implements StudentService {
     public void deleteStudent(Long id) {
         Student student = getStudentById(id);
         studentRepository.delete(student);
+    }
+
+    @Override
+    @Transactional
+    public Student assignDepartmentToStudent(Long studentId, Long departmentId) {
+        Student student = getStudentById(studentId);
+        Department department = departmentRepository.findById(departmentId)
+                .orElseThrow(() -> new ResourceNotFoundException("Department not found with id: " + departmentId));
+        student.setDepartment(department);
+        return studentRepository.save(student);
     }
 
     private Set<Course> resolveCourses(Set<String> courseCodes) {

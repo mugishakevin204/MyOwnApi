@@ -48,4 +48,11 @@ public class StudentController {
         studentService.deleteStudent(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PutMapping("/{studentId}/assign-department/{departmentId}")
+    public ResponseEntity<Student> assignDepartmentToStudent(
+            @PathVariable Long studentId,
+            @PathVariable Long departmentId) {
+        return ResponseEntity.ok(studentService.assignDepartmentToStudent(studentId, departmentId));
+    }
 }
