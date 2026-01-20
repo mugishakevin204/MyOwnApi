@@ -1,16 +1,16 @@
 package com.Student.demo.controller;
 
+import com.Student.demo.dto.StudentDTO;
 import com.Student.demo.model.Student;
 import com.Student.demo.service.StudentService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@SuppressWarnings("unused")
 @RestController
 @RequestMapping("/api/students")
 public class StudentController {
@@ -25,16 +25,17 @@ public class StudentController {
         return ResponseEntity.ok(studentService.getAllStudents(PageRequest.of(page, size)));
     }
 
-    @PostMapping
-    public ResponseEntity<Student> createStudent(@Valid @RequestBody Student student) {
-        Student savedStudent = studentService.saveStudent(student);
-
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Student> createStudent(@RequestBody StudentDTO dto) {
+        Student savedStudent = studentService.saveStudent(dto);
         return new ResponseEntity<>(savedStudent, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Student> updateStudent(@PathVariable Long id, @Valid @RequestBody Student studentDetails) {
-        return ResponseEntity.ok(studentService.updateStudent(id, studentDetails));
+    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Student> updateStudent(
+            @PathVariable Long id,
+            @RequestBody StudentDTO dto) {
+        return ResponseEntity.ok(studentService.updateStudent(id, dto));
     }
 
     @GetMapping("/{id}")
@@ -45,7 +46,6 @@ public class StudentController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteStudent(@PathVariable Long id) {
         studentService.deleteStudent(id);
-
         return ResponseEntity.noContent().build();
     }
 }

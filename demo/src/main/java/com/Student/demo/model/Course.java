@@ -1,6 +1,6 @@
 package com.Student.demo.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -34,18 +34,19 @@ public class Course {
     @Schema(example = "CS101")
     private String courseCode;
 
-    @ManyToOne
-    @JoinColumn(name = "teacher_id")
-    @JsonIgnore
+    // Many courses can belong to one teacher
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "teacher_id", nullable = true)
+    @JsonBackReference
     private Teacher teacher;
 
     @ManyToOne
     @JoinColumn(name = "department_id")
-    @JsonIgnore
+    @JsonBackReference
     private Department department;
 
     @ManyToMany(mappedBy = "enrolledCourses")
-    @JsonIgnore
+    @JsonBackReference
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Set<Student> students;

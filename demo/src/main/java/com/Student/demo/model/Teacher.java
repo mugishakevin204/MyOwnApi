@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import io.swagger.v3.oas.annotations.media.Schema;
+import java.util.ArrayList; // Added
 import java.util.List;
 
 @Entity
@@ -38,9 +39,16 @@ public class Teacher {
     @Schema(example = "john.doe@example.com")
     private String email;
 
-    @OneToMany(mappedBy = "teacher")
+    // Modified: Added orphanRemoval and initialized the list to avoid NullPointerExceptions
+    @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private List<Course> courses;
+    private List<Course> courses = new ArrayList<>();
+
+    // Helper method for the relationship
+    public void addCourse(Course course) {
+        courses.add(course);
+        course.setTeacher(this);
+    }
 }
