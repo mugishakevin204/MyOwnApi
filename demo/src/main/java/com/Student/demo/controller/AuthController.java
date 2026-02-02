@@ -22,7 +22,7 @@ public class AuthController {
         User createdUser = authService.register(user);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(createdUser); // ✅ FIXED: return created entity
+                .body(createdUser);
     }
 
     @PostMapping("/login")
