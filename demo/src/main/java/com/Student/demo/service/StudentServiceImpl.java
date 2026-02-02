@@ -79,6 +79,16 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.save(student);
     }
 
+    @Override
+    @Transactional
+    public Student assignCourseToStudent(Long studentId, Long courseId) {
+        Student student = getStudentById(studentId);
+        Course course = courseRepository.findById(courseId)
+                .orElseThrow(() -> new ResourceNotFoundException("Course not found with id: " + courseId));
+        student.getEnrolledCourses().add(course);
+        return studentRepository.save(student);
+    }
+
     private Set<Course> resolveCourses(Set<String> courseCodes) {
         Set<Course> courses = new HashSet<>();
         if (courseCodes != null) {
