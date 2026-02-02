@@ -37,13 +37,13 @@ public class Student {
     @JsonIgnore
     private Department department;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinTable(
             name = "student_enrolled",
             joinColumns = @JoinColumn(name = "student_id"),
             inverseJoinColumns = @JoinColumn(name = "course_id")
     )
-    @JsonManagedReference // This fixes the 500 Infinite Loop error
+    @JsonManagedReference
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Set<Course> enrolledCourses = new HashSet<>();
